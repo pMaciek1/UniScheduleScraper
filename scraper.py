@@ -83,7 +83,7 @@ soup = BeautifulSoup(page.content, 'html.parser') #parsing page content
 my_div = soup.find(id="slidedown-80588-162589") #finding div with my schedules
 
 
-
+#pdfs = pdf_links(my_div)
 workbook = xlsxwriter.Workbook(export + '/Schedule.xlsx') #settings for Excel and its formatting
 writer = PdfWriter() #Creating pdf
 for pdf in pdf_links(my_div):
@@ -102,7 +102,7 @@ for pdf in pdf_links(my_div):
                 c_b3, c_c3, c_d3, c_e3, c_b4, c_c4, c_d4, c_e4 = '', '', '', '', '', '', '', ''
                 substr = page.extract_text().split(' \n \n')
                 for sub in substr:
-                    if not sub.find('GR 1') and not sub.find('SZTUCZNA')and not sub.isspace() and sub.find('godz'):
+                    if sub.find('GR 1') < 0 and sub.find('SZTUCZNA') < 0 and not sub.isspace() and sub.find('godz'):
                         for _ in range(2):
                             sub = sub.removeprefix('\n')
                             sub = sub.removeprefix(' \n')
@@ -113,7 +113,7 @@ for pdf in pdf_links(my_div):
                         elif sub.find('16.15') > 0: c_e3 = sub
                 substr1 = page1.extract_text().split(' \n \n')
                 for sub in substr1:
-                    if not sub.find('GR 1') and not sub.find('SZTUCZNA') < 0 and not sub.isspace() and sub.find('godz'):
+                    if sub.find('GR 1') < 0 and sub.find('SZTUCZNA') < 0 and not sub.isspace() and sub.find('godz'):
                         for _ in range(2):
                             sub = sub.removeprefix('\n')
                             sub = sub.removeprefix(' \n')
